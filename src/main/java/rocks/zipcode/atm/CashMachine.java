@@ -13,6 +13,7 @@ public class CashMachine {
 
     private final Bank bank;
     private AccountData accountData = null;
+    private Boolean overdraft = false;
 
     public CashMachine(Bank bank) {
         this.bank = bank;
@@ -55,7 +56,7 @@ public class CashMachine {
 
     @Override
     public String toString() {
-        return accountData != null ? accountData.toString() : "Try account 1000 or 2000 and click submit.";
+        return accountData != null ? toWithdrawString() : "Try account 1000 or 2000 and click submit.";
     }
 
     private <T> void tryCall(Supplier<ActionResult<T> > action, Consumer<T> postAction) {
@@ -71,5 +72,9 @@ public class CashMachine {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
+    }
+
+    private String toWithdrawString(){
+        return accountData.toString();
     }
 }
