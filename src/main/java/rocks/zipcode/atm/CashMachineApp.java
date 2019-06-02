@@ -1,5 +1,6 @@
 package rocks.zipcode.atm;
 
+import javafx.scene.control.Alert;
 import rocks.zipcode.atm.bank.Bank;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -24,6 +25,8 @@ public class CashMachineApp extends Application {
         vbox.setPrefSize(600, 600);
 
         TextArea areaInfo = new TextArea();
+
+        Alert withdrawBig = new Alert(Alert.AlertType.NONE);
 
         Button btnSubmit = new Button("Set Account ID");
         btnSubmit.setOnAction(e -> {

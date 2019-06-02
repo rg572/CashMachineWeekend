@@ -5,6 +5,8 @@ import rocks.zipcode.atm.bank.Bank;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author ZipCodeWilmington
@@ -14,13 +16,28 @@ public class CashMachine {
     private final Bank bank;
     private AccountData accountData = null;
     private Boolean overdraft = false;
+    private Boolean withdrawFailed = false;
+    private String withdrawFailedError = "";
+    private Pattern withdrawFailedPattern =
+            Pattern.compile("Withdraw failed: [\\d]+. Account has: -?[\\d]+");
 
     public CashMachine(Bank bank) {
         this.bank = bank;
+        // "Withdraw failed: " + amount + ". Account has: " + account.getBalance()
+        //Pattern p = Pattern.compile("Withdraw failed: " + "[\\d]+" + ". Account has: " + "[\\d]+");
     }
 
+    /*
     private Consumer<AccountData> update = data -> {
         accountData = data;
+    };*/
+
+    private Consumer<AccountData> update = data ->{
+        overdraft = false;
+        accountData = data;
+        if(accountData.getBalance() < 0){
+            overdraft = true;
+        }
     };
 
     public void login(int id) {
@@ -44,6 +61,7 @@ public class CashMachine {
             tryCall(
                     () -> bank.withdraw(accountData, amount),
                     update
+
             );
         }
     }
@@ -60,6 +78,8 @@ public class CashMachine {
     }
 
     private <T> void tryCall(Supplier<ActionResult<T> > action, Consumer<T> postAction) {
+        withdrawFailed = false;
+        withdrawFailedError = "";
         try {
             ActionResult<T> result = action.get();
             if (result.isSuccess()) {
@@ -67,7 +87,13 @@ public class CashMachine {
                 postAction.accept(data);
             } else {
                 String errorMessage = result.getErrorMessage();
+                Matcher m = withdrawFailedPattern.matcher(errorMessage);
+                if(m.matches()){
+                    withdrawFailed = true;
+                    withdrawFailedError = errorMessage;
+                }
                 throw new RuntimeException(errorMessage);
+
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -75,6 +101,15 @@ public class CashMachine {
     }
 
     private String toWithdrawString(){
-        return accountData.toString();
+        StringBuilder sbuild = new StringBuilder();
+        sbuild.append(accountData);
+        if(overdraft) {
+            sbuild.append("\nACCOUNT OVERDRAFTED");
+        }
+        if(withdrawFailed){
+            sbuild.append("\n");
+            sbuild.append(withdrawFailedError);
+        }
+        return sbuild.toString();
     }
 }
