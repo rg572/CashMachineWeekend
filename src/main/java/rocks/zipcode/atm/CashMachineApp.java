@@ -56,6 +56,7 @@ public class CashMachineApp extends Application {
             if(cashMachine.getWithdrawFailed()){
                 insufficientFunds.setContentText(cashMachine.getWithdrawFailedError());
                 insufficientFunds.showAndWait();
+
             }
         });
 
