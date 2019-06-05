@@ -26,7 +26,9 @@ public class CashMachineApp extends Application {
 
         TextArea areaInfo = new TextArea();
 
-        Alert withdrawBig = new Alert(Alert.AlertType.NONE);
+        Alert insufficientFunds = new Alert(Alert.AlertType.WARNING);
+        insufficientFunds.setTitle("Insufficient Funds");
+        insufficientFunds.setHeaderText("Insufficient Funds");
 
         Button btnSubmit = new Button("Set Account ID");
         btnSubmit.setOnAction(e -> {
@@ -50,6 +52,11 @@ public class CashMachineApp extends Application {
             cashMachine.withdraw(amount);
 
             areaInfo.setText(cashMachine.toString());
+
+            if(cashMachine.getWithdrawFailed()){
+                insufficientFunds.setContentText(cashMachine.getWithdrawFailedError());
+                insufficientFunds.showAndWait();
+            }
         });
 
         Button btnExit = new Button("Exit");

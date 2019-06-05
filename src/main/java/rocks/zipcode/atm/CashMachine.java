@@ -106,10 +106,18 @@ public class CashMachine {
         if(overdraft) {
             sbuild.append("\nACCOUNT OVERDRAFTED");
         }
-        if(withdrawFailed){
+        /*if(withdrawFailed){
             sbuild.append("\n");
             sbuild.append(withdrawFailedError);
-        }
+        }*/
         return sbuild.toString();
+    }
+
+    public Boolean getWithdrawFailed(){
+        return withdrawFailed;
+    }
+
+    public String getWithdrawFailedError(){
+        return withdrawFailedError;
     }
 }
