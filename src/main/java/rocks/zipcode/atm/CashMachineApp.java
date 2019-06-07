@@ -1,13 +1,12 @@
 package rocks.zipcode.atm;
 
-import javafx.scene.control.Alert;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.*;
 import rocks.zipcode.atm.bank.Bank;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.FlowPane;
@@ -19,6 +18,7 @@ public class CashMachineApp extends Application {
 
     private TextField field = new TextField();
     private CashMachine cashMachine = new CashMachine(new Bank());
+    ObservableList<String> accountNums;
 
     private Parent createContent() {
         VBox vbox = new VBox(10);
@@ -30,9 +30,21 @@ public class CashMachineApp extends Application {
         insufficientFunds.setTitle("Insufficient Funds");
         insufficientFunds.setHeaderText("Insufficient Funds");
 
+
+        accountNums =FXCollections.observableArrayList();
+        for(String s : cashMachine.getAccountNumbers()){
+            accountNums.add(s);
+        }
+        accountNums.add("3000");
+
+        ComboBox accountMenu = new ComboBox(accountNums);
+        accountMenu.setPromptText("Choose an Account");
+        accountNums.add("4000");
+
         Button btnSubmit = new Button("Set Account ID");
         btnSubmit.setOnAction(e -> {
-            int id = Integer.parseInt(field.getText());
+            System.out.println(accountMenu.getValue().toString());
+            int id = Integer.parseInt(accountMenu.getValue().toString());
             cashMachine.login(id);
 
             areaInfo.setText(cashMachine.toString());
@@ -70,10 +82,12 @@ public class CashMachineApp extends Application {
         FlowPane flowpane = new FlowPane();
 
         flowpane.getChildren().add(btnSubmit);
+        flowpane.getChildren().add(accountMenu);
         flowpane.getChildren().add(btnDeposit);
         flowpane.getChildren().add(btnWithdraw);
         flowpane.getChildren().add(btnExit);
         vbox.getChildren().addAll(field, flowpane, areaInfo);
+        accountNums.add("5000");
         return vbox;
     }
 

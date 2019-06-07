@@ -3,6 +3,7 @@ package rocks.zipcode.atm;
 import rocks.zipcode.atm.bank.AccountData;
 import rocks.zipcode.atm.bank.Bank;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
@@ -111,6 +112,10 @@ public class CashMachine {
             sbuild.append(withdrawFailedError);
         }*/
         return sbuild.toString();
+    }
+
+    public List<String> getAccountNumbers(){
+        return bank.getAccountNumbers();
     }
 
     public Boolean getWithdrawFailed(){

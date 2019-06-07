@@ -2,8 +2,7 @@ package rocks.zipcode.atm.bank;
 
 import rocks.zipcode.atm.ActionResult;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author ZipCodeWilmington
@@ -47,6 +46,29 @@ public class Bank {
             return ActionResult.success(account.getAccountData());
         } else {
             return ActionResult.fail("Withdraw failed: " + amount + ". Account has: " + account.getBalance());
+        }
+    }
+
+    public List<String> getAccountNumbers(){
+        List<String> accountNumbers = new ArrayList<>();
+        for(Integer accountNumber : accounts.keySet()){
+            accountNumbers.add(accountNumber.toString());
+        }
+
+        return accountNumbers;
+    }
+
+    private class numericStringSort implements Comparator<String> {
+
+        @Override
+        public int compare(String o1, String o2) {
+            if(Integer.parseInt(o1) < Integer.parseInt(o2)){
+                return -1;
+            }
+            //else if(Integer.parseInt(o2)){
+
+           // }
+            return 0;
         }
     }
 }
