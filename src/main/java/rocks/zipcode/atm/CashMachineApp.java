@@ -35,12 +35,13 @@ public class CashMachineApp extends Application {
         for(String s : cashMachine.getAccountNumbers()){
             accountNums.add(s);
         }
-        accountNums.add("3000");
+        //accountNums.add("3000");
 
         Button btnSubmit = new Button("Set Account ID");
         Button btnExit = new Button("Exit");
         Button btnWithdraw = new Button("Withdraw");
         Button btnDeposit = new Button("Deposit");
+        Button btnAddAccount = new Button("Add Account");
 
         ComboBox accountMenu = new ComboBox(accountNums);
         accountMenu.setPromptText("Choose an Account");
@@ -61,7 +62,7 @@ public class CashMachineApp extends Application {
         });
 
 
-        accountNums.add("4000");
+        //accountNums.add("4000");
 
         btnDeposit.setDisable(true);
         btnDeposit.setOnAction(e -> {
@@ -93,9 +94,17 @@ public class CashMachineApp extends Application {
             btnWithdraw.setDisable(true);
             btnSubmit.setDisable(false);
 
-
+            //accountNums.add("6000");
 
             areaInfo.setText(cashMachine.toString());
+        });
+
+        btnAddAccount.setOnAction(e ->{
+            TextInputDialog newAccountDialog = new TextInputDialog("something");
+            newAccountDialog.setContentText("This is something");
+            newAccountDialog.showAndWait();
+
+            //Dialog
         });
 
 
@@ -106,8 +115,9 @@ public class CashMachineApp extends Application {
         flowpane.getChildren().add(btnDeposit);
         flowpane.getChildren().add(btnWithdraw);
         flowpane.getChildren().add(btnExit);
+        flowpane.getChildren().add(btnAddAccount);
         vbox.getChildren().addAll(field, flowpane, areaInfo);
-        accountNums.add("5000");
+        //accountNums.add("5000");
         return vbox;
     }
 
