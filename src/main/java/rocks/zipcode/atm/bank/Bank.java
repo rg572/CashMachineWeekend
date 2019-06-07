@@ -54,21 +54,23 @@ public class Bank {
         for(Integer accountNumber : accounts.keySet()){
             accountNumbers.add(accountNumber.toString());
         }
-
+        Collections.sort(accountNumbers, new NumericStringSort());
         return accountNumbers;
     }
 
-    private class numericStringSort implements Comparator<String> {
+    private class NumericStringSort implements Comparator<String> {
 
         @Override
         public int compare(String o1, String o2) {
             if(Integer.parseInt(o1) < Integer.parseInt(o2)){
                 return -1;
             }
-            //else if(Integer.parseInt(o2)){
-
-           // }
-            return 0;
+            else if(Integer.parseInt(o1) > Integer.parseInt(o2)){
+                return 1;
+            }
+            else {
+                return 0;
+            }
         }
     }
 }

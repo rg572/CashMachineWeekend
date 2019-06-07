@@ -39,32 +39,43 @@ public class CashMachineApp extends Application {
         Alert insufficientFunds = new Alert(Alert.AlertType.WARNING);
         insufficientFunds.setTitle("Insufficient Funds");
         insufficientFunds.setHeaderText("Insufficient Funds");
-        ////
+
         //field.setMaxSize(70, 20);
 
 
 
+       field.setMaxWidth(200);
+
+        areaInfo.setStyle(" -fx-background-color: black;");
+
+
+        //////////DROP-DOWN/////////////
 
         accountNums =FXCollections.observableArrayList();
         for(String s : cashMachine.getAccountNumbers()){
             accountNums.add(s);
         }
-        accountNums.add("3000");
+        //accountNums.add("3000");
 
         Button btnSubmit = new Button("Set Account ID");
-        btnSubmit.setStyle("-fx-background-color:   blue");
+
+        //btnSubmit.setStyle("-fx-background-color: black");
+        //btnSubmit.setStyle("fx-text-fill: red");
+
         Button btnExit = new Button("Exit");
-        btnExit.setStyle("-fx-background-color:   blue");
+
         Button btnWithdraw = new Button("Withdraw");
-        btnWithdraw.setStyle("-fx-background-color:   blue");
+
         Button btnDeposit = new Button("Deposit");
-        btnDeposit.setStyle("-fx-background-color:   blue");
+
+        Button btnAddAccount = new Button("Add Account");
 
         ComboBox accountMenu = new ComboBox(accountNums);
         accountMenu.setPromptText("Choose an Account");
 
 
 
+        //////////SUBMIT/////////////
 
         btnSubmit.setOnAction(e -> {
             System.out.println(accountMenu.getValue().toString());
@@ -79,29 +90,35 @@ public class CashMachineApp extends Application {
         });
 
 
-        accountNums.add("4000");
+        //accountNums.add("4000");
+
+        //////////DEPOSIT/////////////
 
         btnDeposit.setDisable(true);
         btnDeposit.setOnAction(e -> {
             int amount = Integer.parseInt(field.getText());
             cashMachine.deposit(amount);
-
+            field.setText("");
             areaInfo.setText(cashMachine.toString());
         });
+
+        //////////WITHDRAW/////////////
 
         btnWithdraw.setDisable(true);
         btnWithdraw.setOnAction(e -> {
             int amount = Integer.parseInt(field.getText());
             cashMachine.withdraw(amount);
-
+            field.setText("");
             areaInfo.setText(cashMachine.toString());
 
             if(cashMachine.getWithdrawFailed()){
                 insufficientFunds.setContentText(cashMachine.getWithdrawFailedError());
                 insufficientFunds.showAndWait();
 
+
             }
         });
+        //////////EXIT/////////////
 
         btnExit.setDisable(true);
         btnExit.setOnAction(e -> {
@@ -110,10 +127,19 @@ public class CashMachineApp extends Application {
             btnExit.setDisable(true);
             btnWithdraw.setDisable(true);
             btnSubmit.setDisable(false);
+            field.setText("");
 
-
+            //accountNums.add("6000");
 
             areaInfo.setText(cashMachine.toString());
+        });
+
+        btnAddAccount.setOnAction(e ->{
+            TextInputDialog newAccountDialog = new TextInputDialog("something");
+            newAccountDialog.setContentText("This is something");
+            newAccountDialog.showAndWait();
+
+            //Dialog
         });
 
 
@@ -124,8 +150,9 @@ public class CashMachineApp extends Application {
         flowpane.getChildren().add(btnDeposit);
         flowpane.getChildren().add(btnWithdraw);
         flowpane.getChildren().add(btnExit);
+        flowpane.getChildren().add(btnAddAccount);
         vbox.getChildren().addAll(field, flowpane, areaInfo);
-        accountNums.add("5000");
+        //accountNums.add("5000");
         return vbox;
     }
 
