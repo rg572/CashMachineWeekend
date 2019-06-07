@@ -32,7 +32,6 @@ public class CashMachineApp extends Application {
 
         field.setMaxWidth(200);
 
-        areaInfo.setStyle(" -fx-background-color: black;");
 
 
         //////////DROP-DOWN/////////////
@@ -44,11 +43,18 @@ public class CashMachineApp extends Application {
         accountNums.add("3000");
 
         Button btnSubmit = new Button("Set Account ID");
-        //btnSubmit.setStyle("-fx-background-color: black");
+        areaInfo.setStyle(" -fx-background-color: black;");
+        btnSubmit.setStyle("-fx-background-color: #738aba");
+        
         //btnSubmit.setStyle("fx-text-fill: red");
         Button btnExit = new Button("Exit");
+        btnExit.setStyle("-fx-background-color: #738aba");
+
         Button btnWithdraw = new Button("Withdraw");
+        btnWithdraw.setStyle("-fx-background-color: #738aba");
+
         Button btnDeposit = new Button("Deposit");
+        btnDeposit.setStyle("-fx-background-color: #738aba");
 
         ComboBox accountMenu = new ComboBox(accountNums);
         accountMenu.setPromptText("Choose an Account");
