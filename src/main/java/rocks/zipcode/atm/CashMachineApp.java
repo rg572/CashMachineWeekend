@@ -37,20 +37,33 @@ public class CashMachineApp extends Application {
         }
         accountNums.add("3000");
 
+        Button btnSubmit = new Button("Set Account ID");
+        Button btnExit = new Button("Exit");
+        Button btnWithdraw = new Button("Withdraw");
+        Button btnDeposit = new Button("Deposit");
+
         ComboBox accountMenu = new ComboBox(accountNums);
         accountMenu.setPromptText("Choose an Account");
-        accountNums.add("4000");
 
-        Button btnSubmit = new Button("Set Account ID");
+
+
+
         btnSubmit.setOnAction(e -> {
             System.out.println(accountMenu.getValue().toString());
             int id = Integer.parseInt(accountMenu.getValue().toString());
             cashMachine.login(id);
+            btnDeposit.setDisable(false);
+            btnExit.setDisable(false);
+            btnWithdraw.setDisable(false);
+            btnSubmit.setDisable(true);
 
             areaInfo.setText(cashMachine.toString());
         });
 
-        Button btnDeposit = new Button("Deposit");
+
+        accountNums.add("4000");
+
+        btnDeposit.setDisable(true);
         btnDeposit.setOnAction(e -> {
             int amount = Integer.parseInt(field.getText());
             cashMachine.deposit(amount);
@@ -58,7 +71,7 @@ public class CashMachineApp extends Application {
             areaInfo.setText(cashMachine.toString());
         });
 
-        Button btnWithdraw = new Button("Withdraw");
+        btnWithdraw.setDisable(true);
         btnWithdraw.setOnAction(e -> {
             int amount = Integer.parseInt(field.getText());
             cashMachine.withdraw(amount);
@@ -72,12 +85,19 @@ public class CashMachineApp extends Application {
             }
         });
 
-        Button btnExit = new Button("Exit");
+        btnExit.setDisable(true);
         btnExit.setOnAction(e -> {
             cashMachine.exit();
+            btnDeposit.setDisable(true);
+            btnExit.setDisable(true);
+            btnWithdraw.setDisable(true);
+            btnSubmit.setDisable(false);
+
+
 
             areaInfo.setText(cashMachine.toString());
         });
+
 
         FlowPane flowpane = new FlowPane();
 
