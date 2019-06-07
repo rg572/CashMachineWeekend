@@ -11,10 +11,20 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.FlowPane;
 
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+
 /**
  * @author ZipCodeWilmington
  */
 public class CashMachineApp extends Application {
+
+
 
     private TextField field = new TextField();
     private CashMachine cashMachine = new CashMachine(new Bank());
@@ -29,6 +39,10 @@ public class CashMachineApp extends Application {
         Alert insufficientFunds = new Alert(Alert.AlertType.WARNING);
         insufficientFunds.setTitle("Insufficient Funds");
         insufficientFunds.setHeaderText("Insufficient Funds");
+        ////
+        //field.setMaxSize(70, 20);
+
+
 
 
         accountNums =FXCollections.observableArrayList();
@@ -38,9 +52,13 @@ public class CashMachineApp extends Application {
         accountNums.add("3000");
 
         Button btnSubmit = new Button("Set Account ID");
+        btnSubmit.setStyle("-fx-background-color:   blue");
         Button btnExit = new Button("Exit");
+        btnExit.setStyle("-fx-background-color:   blue");
         Button btnWithdraw = new Button("Withdraw");
+        btnWithdraw.setStyle("-fx-background-color:   blue");
         Button btnDeposit = new Button("Deposit");
+        btnDeposit.setStyle("-fx-background-color:   blue");
 
         ComboBox accountMenu = new ComboBox(accountNums);
         accountMenu.setPromptText("Choose an Account");
