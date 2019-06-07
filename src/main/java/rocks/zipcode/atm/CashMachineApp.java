@@ -30,6 +30,12 @@ public class CashMachineApp extends Application {
         insufficientFunds.setTitle("Insufficient Funds");
         insufficientFunds.setHeaderText("Insufficient Funds");
 
+        field.setMaxWidth(200);
+
+        areaInfo.setStyle(" -fx-background-color: black;");
+
+
+        //////////DROP-DOWN/////////////
 
         accountNums =FXCollections.observableArrayList();
         for(String s : cashMachine.getAccountNumbers()){
@@ -38,6 +44,8 @@ public class CashMachineApp extends Application {
         accountNums.add("3000");
 
         Button btnSubmit = new Button("Set Account ID");
+        //btnSubmit.setStyle("-fx-background-color: black");
+        //btnSubmit.setStyle("fx-text-fill: red");
         Button btnExit = new Button("Exit");
         Button btnWithdraw = new Button("Withdraw");
         Button btnDeposit = new Button("Deposit");
@@ -47,6 +55,7 @@ public class CashMachineApp extends Application {
 
 
 
+        //////////SUBMIT/////////////
 
         btnSubmit.setOnAction(e -> {
             System.out.println(accountMenu.getValue().toString());
@@ -63,6 +72,8 @@ public class CashMachineApp extends Application {
 
         accountNums.add("4000");
 
+        //////////DEPOSIT/////////////
+
         btnDeposit.setDisable(true);
         btnDeposit.setOnAction(e -> {
             int amount = Integer.parseInt(field.getText());
@@ -70,6 +81,8 @@ public class CashMachineApp extends Application {
 
             areaInfo.setText(cashMachine.toString());
         });
+
+        //////////WITHDRAW/////////////
 
         btnWithdraw.setDisable(true);
         btnWithdraw.setOnAction(e -> {
@@ -84,6 +97,7 @@ public class CashMachineApp extends Application {
 
             }
         });
+        //////////EXIT/////////////
 
         btnExit.setDisable(true);
         btnExit.setOnAction(e -> {
@@ -92,6 +106,7 @@ public class CashMachineApp extends Application {
             btnExit.setDisable(true);
             btnWithdraw.setDisable(true);
             btnSubmit.setDisable(false);
+            field.setText("");
 
 
 
