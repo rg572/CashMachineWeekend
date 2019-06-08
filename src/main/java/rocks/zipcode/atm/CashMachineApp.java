@@ -36,7 +36,7 @@ public class CashMachineApp extends Application {
         VBox vbox = new VBox(10);
         vbox.setPrefSize(250, 400);
         Button login = new Button("Login");
-        Label head = new Label("NAME BANKING");
+        Label head = new Label("DOGE BANK");
 
         login.setOnAction(e -> { });
 
@@ -62,27 +62,38 @@ public class CashMachineApp extends Application {
 ///////////MAIN SCENE////////////
     private Parent createContent() {
         VBox vbox = new VBox(10);
-        vbox.setPrefSize(600, 400);
+        vbox.setPrefSize(600, 475);
+
+        Label title = new Label("Doge Bank");
+        title.setStyle("-fx-text-fill: white; -fx-font: 40 Tahoma; ");
 
         Label idLabel = new Label("Account ID:");
         idLabel.setStyle("-fx-text-fill: white");
         TextArea accountId = new TextArea();
         accountId.setMaxHeight(10);
+        accountId.setDisable(true);
+        accountId.setStyle("-fx-opacity: 1;");
 
         Label nameLabel = new Label("Account Holder Name:");
         nameLabel.setStyle("-fx-text-fill: white");
         TextArea name = new TextArea();
         name.setMaxHeight(10);
+        name.setDisable(true);
+        name.setStyle("-fx-opacity: 1;");
 
         Label emailLabel = new Label("Account Email:");
         emailLabel.setStyle("-fx-text-fill: white");
         TextArea email = new TextArea();
         email.setMaxHeight(10);
+        email.setDisable(true);
+        email.setStyle("-fx-opacity: 1;");
 
         Label balanceLabel = new Label("Account Balance:");
         balanceLabel.setStyle("-fx-text-fill: white");
         TextArea balance = new TextArea();
         balance.setMaxHeight(10);
+        balance.setDisable(true);
+        balance.setStyle("-fx-opacity: 1;");
 
         Alert insufficientFunds = new Alert(Alert.AlertType.WARNING);
         insufficientFunds.setTitle("Insufficient Funds");
@@ -270,7 +281,7 @@ public class CashMachineApp extends Application {
         flowpane.getChildren().add(btnExit);
         flowpane.getChildren().add(btnAddAccount);
 
-        vbox.getChildren().addAll(field, flowpane, idLabel, accountId, nameLabel, name, emailLabel, email, balanceLabel, balance);
+        vbox.getChildren().addAll(title ,field, flowpane, idLabel, accountId, nameLabel, name, emailLabel, email, balanceLabel, balance);
         flowpane.setHgap(5);
 
         return vbox;
