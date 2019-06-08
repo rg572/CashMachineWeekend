@@ -26,6 +26,12 @@
     </properties>
 
     <build>
+
+        <resources>
+
+
+        </resources>
+
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
