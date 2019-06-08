@@ -7,6 +7,9 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 
+import javafx.scene.paint.Color;
+
+
 import javafx.scene.text.Font;
 
 import javafx.scene.layout.GridPane;
@@ -19,14 +22,26 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.FlowPane;
 
+
+
+import java.lang.Object;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.Pane;
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 /**
  * @author ZipCodeWilmington
  */
 public class CashMachineApp extends Application {
+
+
 
     private TextField field = new TextField();
     private CashMachine cashMachine = new CashMachine(new Bank());
@@ -55,11 +70,28 @@ public class CashMachineApp extends Application {
         VBox vbox = new VBox(10);
         vbox.setPrefSize(600, 600);
 
-        TextArea areaInfo = new TextArea();
+       // TextArea areaInfo = new TextArea();
+
+        TextArea accountId = new TextArea();
+        TextArea name = new TextArea();
+        TextArea email = new TextArea();
+        TextArea balance = new TextArea();
+
 
         Alert insufficientFunds = new Alert(Alert.AlertType.WARNING);
         insufficientFunds.setTitle("Insufficient Funds");
         insufficientFunds.setHeaderText("Insufficient Funds");
+
+
+        //field.setMaxSize(70, 20);
+
+
+
+  
+
+        //areaInfo.setStyle(" -fx-background-color: black;");
+
+
 
         //////////DROP-DOWN/////////////
 
@@ -68,16 +100,23 @@ public class CashMachineApp extends Application {
             accountNums.add(s);
         }
         //accountNums.add("3000");
-        areaInfo.setStyle(" -fx-background-color: black;");
+
 
         Button btnSubmit = new Button("Set Account ID");
+
+        //btnSubmit.setStyle("-fx-background-color: black");
         btnSubmit.setStyle("-fx-background-color: #86a5d6");
         btnSubmit.setFont(Font.font("sans-serif"));
 
 
 
         //btnSubmit.setStyle("fx-text-fill: red");
+
         Button btnExit = new Button("Exit");
+
+        btnExit.setStyle("-fx-background-color: black");
+
+        
         btnExit.setStyle("-fx-background-color: #86a5d6; -fx-radius: 20" );
         btnExit.setFont(Font.font("sans-serif"));
 
@@ -119,7 +158,12 @@ public class CashMachineApp extends Application {
 
             btnSubmit.setDisable(true);
 
-            areaInfo.setText(cashMachine.toString());
+            accountId.setText(Integer.toString(cashMachine.getAccoutId()));
+            balance.setText(Integer.toString(cashMachine.getAccoutBal()));
+            name.setText(cashMachine.getAccoutName());
+            email.setText(cashMachine.getAccoutEmail());
+
+            //areaInfo.setText(cashMachine.toString());
         });
 
 
@@ -131,8 +175,9 @@ public class CashMachineApp extends Application {
         btnDeposit.setOnAction(e -> {
             int amount = Integer.parseInt(field.getText());
             cashMachine.deposit(amount);
-
-            areaInfo.setText(cashMachine.toString());
+            field.setText("");
+            //areaInfo.setText(cashMachine.toString());
+            balance.setText(Integer.toString(cashMachine.getAccoutBal()));
         });
 
         //////////WITHDRAW/////////////
@@ -141,12 +186,16 @@ public class CashMachineApp extends Application {
         btnWithdraw.setOnAction(e -> {
             int amount = Integer.parseInt(field.getText());
             cashMachine.withdraw(amount);
+            field.setText("");
 
-            areaInfo.setText(cashMachine.toString());
+           // areaInfo.setText(cashMachine.toString());
+
+            balance.setText(Integer.toString(cashMachine.getAccoutBal()));
 
             if(cashMachine.getWithdrawFailed()){
                 insufficientFunds.setContentText(cashMachine.getWithdrawFailedError());
                 insufficientFunds.showAndWait();
+
 
             }
         });
@@ -162,10 +211,14 @@ public class CashMachineApp extends Application {
             btnAddAccount.setDisable(true);
 
             field.setText("");
+            accountId.setText("Try account 1000 or 2000 and click submit.");
+            name.setText("");
+            email.setText("");
+            balance.setText("");
 
             //accountNums.add("6000");
 
-            areaInfo.setText(cashMachine.toString());
+            //areaInfo.setText(cashMachine.toString());
         });
         btnAddAccount.setDisable(true);
         btnAddAccount.setOnAction(e ->{
@@ -243,8 +296,11 @@ public class CashMachineApp extends Application {
         flowpane.getChildren().add(btnWithdraw);
         flowpane.getChildren().add(btnExit);
         flowpane.getChildren().add(btnAddAccount);
+
+        vbox.getChildren().addAll(field, flowpane, accountId, name, email, balance);
         flowpane.setHgap(5);
-        vbox.getChildren().addAll(field, flowpane, areaInfo);
+
+
         //accountNums.add("5000");
         return vbox;
     }
