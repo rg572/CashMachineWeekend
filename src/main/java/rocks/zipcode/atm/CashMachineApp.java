@@ -6,7 +6,11 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+
+import javafx.scene.text.Font;
+
 import javafx.scene.layout.GridPane;
+
 import rocks.zipcode.atm.bank.Bank;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -27,6 +31,25 @@ public class CashMachineApp extends Application {
     private TextField field = new TextField();
     private CashMachine cashMachine = new CashMachine(new Bank());
     ObservableList<String> accountNums;
+    private TextField passWord = new TextField();
+    private TextField userName = new TextField();
+
+
+    private Parent login() {
+        VBox vbox = new VBox(10);
+        vbox.setPrefSize(300, 500);
+        Button login = new Button("Login");
+
+
+        FlowPane flowpane = new FlowPane();
+
+        flowpane.getChildren().add(userName);
+        flowpane.getChildren().add(passWord);
+        flowpane.getChildren().add(login);
+        vbox.getChildren().addAll(userName,passWord,login);
+
+        return vbox;
+    }
 
     private Parent createContent() {
         VBox vbox = new VBox(10);
@@ -38,10 +61,6 @@ public class CashMachineApp extends Application {
         insufficientFunds.setTitle("Insufficient Funds");
         insufficientFunds.setHeaderText("Insufficient Funds");
 
-        field.setMaxWidth(200);
-
-
-
         //////////DROP-DOWN/////////////
 
         accountNums =FXCollections.observableArrayList();
@@ -49,28 +68,40 @@ public class CashMachineApp extends Application {
             accountNums.add(s);
         }
         //accountNums.add("3000");
-
+        areaInfo.setStyle(" -fx-background-color: black;");
 
         Button btnSubmit = new Button("Set Account ID");
-        areaInfo.setStyle(" -fx-background-color: black;");
-        btnSubmit.setStyle("-fx-background-color: #738aba");
-        
+        btnSubmit.setStyle("-fx-background-color: #86a5d6");
+        btnSubmit.setFont(Font.font("sans-serif"));
+
+
+
         //btnSubmit.setStyle("fx-text-fill: red");
         Button btnExit = new Button("Exit");
-        btnExit.setStyle("-fx-background-color: #738aba");
+        btnExit.setStyle("-fx-background-color: #86a5d6; -fx-radius: 20" );
+        btnExit.setFont(Font.font("sans-serif"));
 
         Button btnWithdraw = new Button("Withdraw");
-        btnWithdraw.setStyle("-fx-background-color: #738aba");
+        btnWithdraw.setStyle("-fx-background-color: #86a5d6; -fx-radius: 20");
+        btnWithdraw.setFont(Font.font("sans-serif"));
+
 
         Button btnDeposit = new Button("Deposit");
+        btnDeposit.setStyle("-fx-background-color: #86a5d6;  -fx-radius: 50");
+        btnDeposit.setFont(Font.font("sans-serif"));
 
-        btnDeposit.setStyle("-fx-background-color: #738aba");
 
         Button btnAddAccount = new Button("Add Account");
+        btnAddAccount.setStyle("-fx-background-color: #86a5d6;  -fx-radius: 20");
+        btnAddAccount.setFont(Font.font("sans-serif"));
+
 
 
         ComboBox accountMenu = new ComboBox(accountNums);
         accountMenu.setPromptText("Choose an Account");
+        accountMenu.setStyle("-fx-background-color: #86a5d6;  -fx-radius: 20");
+
+        vbox.setStyle("-fx-background-color: #4b6184; -fx-border-color: black; -fx-border-width: 2");
 
 
 
@@ -83,6 +114,9 @@ public class CashMachineApp extends Application {
             btnDeposit.setDisable(false);
             btnExit.setDisable(false);
             btnWithdraw.setDisable(false);
+            btnAddAccount.setDisable(false);
+
+
             btnSubmit.setDisable(true);
 
             areaInfo.setText(cashMachine.toString());
@@ -125,13 +159,15 @@ public class CashMachineApp extends Application {
             btnExit.setDisable(true);
             btnWithdraw.setDisable(true);
             btnSubmit.setDisable(false);
+            btnAddAccount.setDisable(true);
+
             field.setText("");
 
             //accountNums.add("6000");
 
             areaInfo.setText(cashMachine.toString());
         });
-
+        btnAddAccount.setDisable(true);
         btnAddAccount.setOnAction(e ->{
             //TextInputDialog newAccountDialog = new TextInputDialog("something");
             //newAccountDialog.setContentText("This is something");
@@ -207,6 +243,7 @@ public class CashMachineApp extends Application {
         flowpane.getChildren().add(btnWithdraw);
         flowpane.getChildren().add(btnExit);
         flowpane.getChildren().add(btnAddAccount);
+        flowpane.setHgap(5);
         vbox.getChildren().addAll(field, flowpane, areaInfo);
         //accountNums.add("5000");
         return vbox;
@@ -214,7 +251,9 @@ public class CashMachineApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        stage.setScene(new Scene(login()));
         stage.setScene(new Scene(createContent()));
+
         stage.show();
     }
 
