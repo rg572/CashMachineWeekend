@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.layout.GridPane;
 import rocks.zipcode.atm.bank.Bank;
@@ -36,7 +37,7 @@ public class CashMachineApp extends Application {
         VBox vbox = new VBox(10);
         vbox.setPrefSize(250, 400);
         Button login = new Button("Login");
-        Label head = new Label("NAME BANKING");
+        Label head = new Label("DOGE BANK");
 
         login.setOnAction(e -> { });
 
@@ -62,31 +63,53 @@ public class CashMachineApp extends Application {
 ///////////MAIN SCENE////////////
     private Parent createContent() {
         VBox vbox = new VBox(10);
-        vbox.setPrefSize(600, 400);
+        vbox.setPrefSize(600, 475);
+
+        Label title = new Label("Doge Bank");
+        title.setStyle("-fx-text-fill: white; -fx-font: 40 Tahoma; ");
 
         Label idLabel = new Label("Account ID:");
         idLabel.setStyle("-fx-text-fill: white");
         TextArea accountId = new TextArea();
         accountId.setMaxHeight(10);
+        accountId.setDisable(true);
+        accountId.setStyle("-fx-opacity: 1;");
 
         Label nameLabel = new Label("Account Holder Name:");
         nameLabel.setStyle("-fx-text-fill: white");
         TextArea name = new TextArea();
         name.setMaxHeight(10);
+        name.setDisable(true);
+        name.setStyle("-fx-opacity: 1;");
 
         Label emailLabel = new Label("Account Email:");
         emailLabel.setStyle("-fx-text-fill: white");
         TextArea email = new TextArea();
         email.setMaxHeight(10);
+        email.setDisable(true);
+        email.setStyle("-fx-opacity: 1;");
 
         Label balanceLabel = new Label("Account Balance:");
         balanceLabel.setStyle("-fx-text-fill: white");
         TextArea balance = new TextArea();
         balance.setMaxHeight(10);
+        balance.setDisable(true);
+        balance.setStyle("-fx-opacity: 1;");
 
         Alert insufficientFunds = new Alert(Alert.AlertType.WARNING);
         insufficientFunds.setTitle("Insufficient Funds");
         insufficientFunds.setHeaderText("Insufficient Funds");
+
+        Alert helpAlert = new Alert(Alert.AlertType.INFORMATION);
+        //Dialog<List<String>> helpAlert= new Dialog<>();
+
+        helpAlert.setTitle("\"Help\"");
+        helpAlert.setHeaderText("Google it");
+        helpAlert.getDialogPane().setStyle("-fx-font-size: 20pt");
+        ImageView kris = new ImageView("Kris.png");
+        kris.setFitHeight(150);
+        kris.setFitWidth(150);
+        helpAlert.setGraphic(kris);
 
 //////////DROP-DOWN/////////////
 
@@ -102,6 +125,11 @@ public class CashMachineApp extends Application {
         btnSubmit.setFont(Font.font("sans-serif"));
 
         Button btnExit = new Button("Exit");
+
+
+
+
+
         btnExit.setStyle("-fx-background-color: #86a5d6; -fx-radius: 20" );
         btnExit.setFont(Font.font("sans-serif"));
 
@@ -123,8 +151,12 @@ public class CashMachineApp extends Application {
         accountMenu.setPromptText("Choose an Account");
         accountMenu.setStyle("-fx-background-color: #86a5d6;  -fx-radius: 20");
 
-        vbox.setStyle("-fx-background-color: #4b6184; -fx-border-color: black; -fx-border-width: 2");
+        Button btnHelp = new Button("Help");
+        btnHelp.setStyle("-fx-background-color: #86a5d6; -fx-radius: 20");
+        btnHelp.setFont(Font.font("sans-serif"));
 
+
+        vbox.setStyle("-fx-background-color: #4b6184; -fx-border-color: black; -fx-border-width: 2");
 
 
 //////////SUBMIT/////////////
@@ -252,11 +284,29 @@ public class CashMachineApp extends Application {
                 for(String s : cashMachine.getAccountNumbers()){
                     accountNums.add(s);
                 }
+
+                if(cashMachine.getGenericError()){
+                    //System.out.println("yeller Error");
+                    Alert yeller = new Alert(Alert.AlertType.ERROR);
+                    yeller.setTitle("Danger, Will Robinson!");
+                    //yeller.setHeaderText("Something, somewhere went terribly wrong");
+                    yeller.setHeaderText(cashMachine.getGenericErrorMessage());
+                    yeller.showAndWait();
+                }
+
+
                 System.out.println("Account ID:     "+ newAccountInfo.get(0));
                 System.out.println("Name:           " + newAccountInfo.get(1));
                 System.out.println("Email Address:: " + newAccountInfo.get(2));
                 System.out.println("Balance:        " + newAccountInfo.get(3));
             });
+
+        });
+
+/////////////////HELP BUTTON////////////////
+
+        btnHelp.setOnAction(e ->{
+            helpAlert.showAndWait();
 
         });
 
@@ -269,8 +319,9 @@ public class CashMachineApp extends Application {
         flowpane.getChildren().add(btnWithdraw);
         flowpane.getChildren().add(btnExit);
         flowpane.getChildren().add(btnAddAccount);
+        flowpane.getChildren().add(btnHelp);
 
-        vbox.getChildren().addAll(field, flowpane, idLabel, accountId, nameLabel, name, emailLabel, email, balanceLabel, balance);
+        vbox.getChildren().addAll(title ,field, flowpane, idLabel, accountId, nameLabel, name, emailLabel, email, balanceLabel, balance);
         flowpane.setHgap(5);
 
         return vbox;
