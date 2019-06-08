@@ -31,12 +31,14 @@ public class CashMachineApp extends Application {
     private TextField passWord = new TextField();
     private TextField userName = new TextField();
 
-
+/////////LOGIN MODAL//////////
     private Parent login() {
         VBox vbox = new VBox(10);
         vbox.setPrefSize(250, 400);
         Button login = new Button("Login");
-        Label head = new Label("BADASS BANKING");
+        Label head = new Label("NAME BANKING");
+
+        login.setOnAction(e -> { });
 
         head.setStyle("-fx-text-fill: white");
 
@@ -56,58 +58,50 @@ public class CashMachineApp extends Application {
         return vbox;
     }
 
+
+///////////MAIN SCENE////////////
     private Parent createContent() {
         VBox vbox = new VBox(10);
-        vbox.setPrefSize(600, 600);
+        vbox.setPrefSize(600, 400);
 
-       // TextArea areaInfo = new TextArea();
-
+        Label idLabel = new Label("Account ID:");
+        idLabel.setStyle("-fx-text-fill: white");
         TextArea accountId = new TextArea();
+        accountId.setMaxHeight(10);
+
+        Label nameLabel = new Label("Account Holder Name:");
+        nameLabel.setStyle("-fx-text-fill: white");
         TextArea name = new TextArea();
+        name.setMaxHeight(10);
+
+        Label emailLabel = new Label("Account Email:");
+        emailLabel.setStyle("-fx-text-fill: white");
         TextArea email = new TextArea();
+        email.setMaxHeight(10);
+
+        Label balanceLabel = new Label("Account Balance:");
+        balanceLabel.setStyle("-fx-text-fill: white");
         TextArea balance = new TextArea();
-
-
+        balance.setMaxHeight(10);
 
         Alert insufficientFunds = new Alert(Alert.AlertType.WARNING);
         insufficientFunds.setTitle("Insufficient Funds");
         insufficientFunds.setHeaderText("Insufficient Funds");
 
-
-        //field.setMaxSize(70, 20);
-
-
-
-  
-
-        //areaInfo.setStyle(" -fx-background-color: black;");
-
-
-
-        //////////DROP-DOWN/////////////
+//////////DROP-DOWN/////////////
 
         accountNums =FXCollections.observableArrayList();
         for(String s : cashMachine.getAccountNumbers()){
             accountNums.add(s);
         }
-        //accountNums.add("3000");
 
-
+////////BUTTON STYLES//////////
         Button btnSubmit = new Button("Set Account ID");
 
-        //btnSubmit.setStyle("-fx-background-color: black");
         btnSubmit.setStyle("-fx-background-color: #86a5d6");
         btnSubmit.setFont(Font.font("sans-serif"));
 
-
-
-        //btnSubmit.setStyle("fx-text-fill: red");
-
         Button btnExit = new Button("Exit");
-
-        btnExit.setStyle("-fx-background-color: black");
-
-        
         btnExit.setStyle("-fx-background-color: #86a5d6; -fx-radius: 20" );
         btnExit.setFont(Font.font("sans-serif"));
 
@@ -125,8 +119,6 @@ public class CashMachineApp extends Application {
         btnAddAccount.setStyle("-fx-background-color: #86a5d6;  -fx-radius: 20");
         btnAddAccount.setFont(Font.font("sans-serif"));
 
-
-
         ComboBox accountMenu = new ComboBox(accountNums);
         accountMenu.setPromptText("Choose an Account");
         accountMenu.setStyle("-fx-background-color: #86a5d6;  -fx-radius: 20");
@@ -135,7 +127,7 @@ public class CashMachineApp extends Application {
 
 
 
-        //////////SUBMIT/////////////
+//////////SUBMIT/////////////
 
         btnSubmit.setOnAction(e -> {
             System.out.println(accountMenu.getValue().toString());
@@ -144,34 +136,26 @@ public class CashMachineApp extends Application {
             btnDeposit.setDisable(false);
             btnExit.setDisable(false);
             btnWithdraw.setDisable(false);
-            btnAddAccount.setDisable(false);
-
-
+            btnAddAccount.setDisable(true);
             btnSubmit.setDisable(true);
 
             accountId.setText(Integer.toString(cashMachine.getAccoutId()));
             balance.setText(Integer.toString(cashMachine.getAccoutBal()));
             name.setText(cashMachine.getAccoutName());
             email.setText(cashMachine.getAccoutEmail());
-
-            //areaInfo.setText(cashMachine.toString());
         });
 
-
-        //accountNums.add("4000");
-
-        //////////DEPOSIT/////////////
+//////////DEPOSIT/////////////
 
         btnDeposit.setDisable(true);
         btnDeposit.setOnAction(e -> {
             int amount = Integer.parseInt(field.getText());
             cashMachine.deposit(amount);
             field.setText("");
-            //areaInfo.setText(cashMachine.toString());
             balance.setText(Integer.toString(cashMachine.getAccoutBal()));
         });
 
-        //////////WITHDRAW/////////////
+//////////WITHDRAW/////////////
 
         btnWithdraw.setDisable(true);
         btnWithdraw.setOnAction(e -> {
@@ -179,18 +163,15 @@ public class CashMachineApp extends Application {
             cashMachine.withdraw(amount);
             field.setText("");
 
-           // areaInfo.setText(cashMachine.toString());
-
             balance.setText(Integer.toString(cashMachine.getAccoutBal()));
 
             if(cashMachine.getWithdrawFailed()){
                 insufficientFunds.setContentText(cashMachine.getWithdrawFailedError());
                 insufficientFunds.showAndWait();
-
-
             }
         });
-        //////////EXIT/////////////
+
+//////////EXIT/////////////
 
         btnExit.setDisable(true);
         btnExit.setOnAction(e -> {
@@ -199,7 +180,7 @@ public class CashMachineApp extends Application {
             btnExit.setDisable(true);
             btnWithdraw.setDisable(true);
             btnSubmit.setDisable(false);
-            btnAddAccount.setDisable(true);
+            btnAddAccount.setDisable(false);
 
             field.setText("");
             accountId.setText("Try account 1000 or 2000 and click submit.");
@@ -208,14 +189,12 @@ public class CashMachineApp extends Application {
             balance.setText("");
 
             //accountNums.add("6000");
-
-            //areaInfo.setText(cashMachine.toString());
         });
-        btnAddAccount.setDisable(true);
+
+/////////////DIALOG BOX?/////////////////
+
+        btnAddAccount.setDisable(false);
         btnAddAccount.setOnAction(e ->{
-            //TextInputDialog newAccountDialog = new TextInputDialog("something");
-            //newAccountDialog.setContentText("This is something");
-            //newAccountDialog.showAndWait();
 
             Dialog<List<String>> dialog = new Dialog<>();
             dialog.setTitle("It's a dialog");
@@ -248,9 +227,6 @@ public class CashMachineApp extends Application {
             grid.add(accountEmail,1,2);
             grid.add(new Label("Starting Balance"),0,3);
             grid.add(accountBalance,1,3);
-
-            //Node addButton = dialog.getDialogPane().lookupButton(addButtonType);
-            //addButton.setDisable(true);
 
 
             dialog.getDialogPane().setContent(grid);
@@ -294,21 +270,20 @@ public class CashMachineApp extends Application {
         flowpane.getChildren().add(btnExit);
         flowpane.getChildren().add(btnAddAccount);
 
-        vbox.getChildren().addAll(field, flowpane, accountId, name, email, balance);
+        vbox.getChildren().addAll(field, flowpane, idLabel, accountId, nameLabel, name, emailLabel, email, balanceLabel, balance);
         flowpane.setHgap(5);
 
-
-        //accountNums.add("5000");
         return vbox;
     }
 
+
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setScene(new Scene(login()));
-        //stage.setScene(new Scene(createContent()));
-
+        //stage.setScene(new Scene(login()));
+        stage.setScene(new Scene(createContent()));
         stage.show();
     }
+
 
     public static void main(String[] args) {
         launch(args);
