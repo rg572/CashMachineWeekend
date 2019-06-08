@@ -16,6 +16,8 @@ public final class AccountData {
         this.name = name;
         this.email = email;
         this.balance = balance;
+
+
     }
 
     public int getId() {

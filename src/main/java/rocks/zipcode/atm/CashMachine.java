@@ -32,6 +32,19 @@ public class CashMachine {
     private Consumer<AccountData> update = data -> {
         accountData = data;
     };*/
+    public int getAccoutId() {
+        return accountData.getId();
+    }
+    public String getAccoutName() {
+        return accountData.getName();
+    }
+    public String getAccoutEmail() {
+        return accountData.getEmail();
+    }
+    public int getAccoutBal() {
+        return accountData.getBalance();
+    }
+
 
     private Consumer<AccountData> update = data ->{
         overdraft = false;
@@ -65,6 +78,13 @@ public class CashMachine {
 
             );
         }
+    }
+
+    public void addAccount(List<String> info){
+        tryCall(
+                () -> bank.addAccount(info),
+                update
+        );
     }
 
     public void exit() {
