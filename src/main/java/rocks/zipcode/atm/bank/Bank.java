@@ -3,6 +3,8 @@ package rocks.zipcode.atm.bank;
 import rocks.zipcode.atm.ActionResult;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author ZipCodeWilmington
@@ -52,16 +54,42 @@ public class Bank {
     public ActionResult<AccountData> addAccount(List<String> info){
         Integer id;
         String name;
-        String enamil;
+        String email;
         Integer balance;
+
         try{
             id = Integer.parseInt(info.get(0));
+            if(id < 0) return ActionResult.fail("Negative account ID's are proscribed");
+            if(accounts.get(id) != null) return ActionResult.fail("Account already exists");
+
         } catch(NumberFormatException e){
-            //return ActionResult.fail
+            return ActionResult.fail("Invalid account ID entered");
         }
 
-        return ActionResult.fail("I suck at this");
+        name = info.get(1);
+
+        Pattern p = Pattern.compile(".+@.+\\.+");
+        Matcher m = p.matcher(info.get(2));
+        //if(m.matches()){
+            email = info.get(2);
+       // } else {
+       //     return ActionResult.fail("Invalid email address");
+       // }
+
+        try{
+            balance = Integer.parseInt(info.get(0));
+            if(balance < 0) return ActionResult.fail("We don't want your negative balances 'round these parts");
+        } catch(NumberFormatException e){
+            return ActionResult.fail("Invalid balance entered");
+        }
+
+        AccountData freshAccountData = new AccountData(id,name,email,balance);
+        accounts.put(id, new BasicAccount(freshAccountData));
+        return ActionResult.success(freshAccountData);
+        //return ActionResult.success(new AccountData(id,name,email,balance));
     }
+
+
 
     public List<String> getAccountNumbers(){
         List<String> accountNumbers = new ArrayList<>();
