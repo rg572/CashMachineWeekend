@@ -252,6 +252,17 @@ public class CashMachineApp extends Application {
                 for(String s : cashMachine.getAccountNumbers()){
                     accountNums.add(s);
                 }
+
+                if(cashMachine.getGenericError()){
+                    //System.out.println("yeller Error");
+                    Alert yeller = new Alert(Alert.AlertType.ERROR);
+                    yeller.setTitle("Danger, Will Robinson!");
+                    //yeller.setHeaderText("Something, somewhere went terribly wrong");
+                    yeller.setHeaderText(cashMachine.getGenericErrorMessage());
+                    yeller.showAndWait();
+                }
+
+
                 System.out.println("Account ID:     "+ newAccountInfo.get(0));
                 System.out.println("Name:           " + newAccountInfo.get(1));
                 System.out.println("Email Address:: " + newAccountInfo.get(2));
