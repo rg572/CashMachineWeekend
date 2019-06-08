@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.layout.GridPane;
 import rocks.zipcode.atm.bank.Bank;
@@ -99,6 +100,17 @@ public class CashMachineApp extends Application {
         insufficientFunds.setTitle("Insufficient Funds");
         insufficientFunds.setHeaderText("Insufficient Funds");
 
+        Alert helpAlert = new Alert(Alert.AlertType.INFORMATION);
+        //Dialog<List<String>> helpAlert= new Dialog<>();
+
+        helpAlert.setTitle("\"Help\"");
+        helpAlert.setHeaderText("Google it");
+        helpAlert.getDialogPane().setStyle("-fx-font-size: 20pt");
+        ImageView kris = new ImageView("Kris.png");
+        kris.setFitHeight(150);
+        kris.setFitWidth(150);
+        helpAlert.setGraphic(kris);
+
 //////////DROP-DOWN/////////////
 
         accountNums =FXCollections.observableArrayList();
@@ -139,8 +151,12 @@ public class CashMachineApp extends Application {
         accountMenu.setPromptText("Choose an Account");
         accountMenu.setStyle("-fx-background-color: #86a5d6;  -fx-radius: 20");
 
-        vbox.setStyle("-fx-background-color: #4b6184; -fx-border-color: black; -fx-border-width: 2");
+        Button btnHelp = new Button("Help");
+        btnHelp.setStyle("-fx-background-color: #86a5d6; -fx-radius: 20");
+        btnHelp.setFont(Font.font("sans-serif"));
 
+
+        vbox.setStyle("-fx-background-color: #4b6184; -fx-border-color: black; -fx-border-width: 2");
 
 
 //////////SUBMIT/////////////
@@ -287,6 +303,13 @@ public class CashMachineApp extends Application {
 
         });
 
+/////////////////HELP BUTTON////////////////
+
+        btnHelp.setOnAction(e ->{
+            helpAlert.showAndWait();
+
+        });
+
 
         FlowPane flowpane = new FlowPane();
 
@@ -296,6 +319,7 @@ public class CashMachineApp extends Application {
         flowpane.getChildren().add(btnWithdraw);
         flowpane.getChildren().add(btnExit);
         flowpane.getChildren().add(btnAddAccount);
+        flowpane.getChildren().add(btnHelp);
 
         vbox.getChildren().addAll(title ,field, flowpane, idLabel, accountId, nameLabel, name, emailLabel, email, balanceLabel, balance);
         flowpane.setHgap(5);
