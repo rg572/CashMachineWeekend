@@ -49,6 +49,20 @@ public class Bank {
         }
     }
 
+    public ActionResult<AccountData> addAccount(List<String> info){
+        Integer id;
+        String name;
+        String enamil;
+        Integer balance;
+        try{
+            id = Integer.parseInt(info.get(0));
+        } catch(NumberFormatException e){
+            //return ActionResult.fail
+        }
+
+        return ActionResult.fail("I suck at this");
+    }
+
     public List<String> getAccountNumbers(){
         List<String> accountNumbers = new ArrayList<>();
         for(Integer accountNumber : accounts.keySet()){

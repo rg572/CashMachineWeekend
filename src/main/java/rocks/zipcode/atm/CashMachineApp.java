@@ -1,8 +1,12 @@
 package rocks.zipcode.atm;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import rocks.zipcode.atm.bank.Bank;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -10,6 +14,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.FlowPane;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author ZipCodeWilmington
@@ -125,11 +133,69 @@ public class CashMachineApp extends Application {
         });
 
         btnAddAccount.setOnAction(e ->{
-            TextInputDialog newAccountDialog = new TextInputDialog("something");
-            newAccountDialog.setContentText("This is something");
-            newAccountDialog.showAndWait();
+            //TextInputDialog newAccountDialog = new TextInputDialog("something");
+            //newAccountDialog.setContentText("This is something");
+            //newAccountDialog.showAndWait();
 
-            //Dialog
+            Dialog<List<String>> dialog = new Dialog<>();
+            dialog.setTitle("It's a dialog");
+            dialog.setHeaderText("IN SPAAAAAACE!!!!");
+
+            // dialog.setGraphic(new ImageView(this.getClass().getResource("fileName.extension").toString())) //add an icon
+
+            ButtonType addButtonType = new ButtonType("Add Account", ButtonBar.ButtonData.OK_DONE);
+            dialog.getDialogPane().getButtonTypes().addAll(addButtonType, ButtonType.CANCEL);
+
+            GridPane grid = new GridPane();
+            grid.setHgap(10);
+            grid.setVgap(10);
+            grid.setPadding(new Insets(20,150,10,10));
+
+            TextField accountID = new TextField();
+            accountID.setPromptText("Account ID");
+            TextField accountName = new TextField();
+            accountName.setPromptText("Name");
+            TextField accountEmail = new TextField();
+            accountEmail.setPromptText("Email Address");
+            TextField accountBalance = new TextField();
+            accountBalance.setPromptText("Starting Balance");
+
+            grid.add(new Label("Account ID"),0,0);
+            grid.add(accountID, 1,0);
+            grid.add(new Label("Name"), 0, 1);
+            grid.add(accountName,1,1);
+            grid.add(new Label("Email Address"),0,2);
+            grid.add(accountEmail,1,2);
+            grid.add(new Label("Starting Balance"),0,3);
+            grid.add(accountBalance,1,3);
+
+            //Node addButton = dialog.getDialogPane().lookupButton(addButtonType);
+            //addButton.setDisable(true);
+
+
+            dialog.getDialogPane().setContent(grid);
+
+            dialog.setResultConverter(dialogButton -> {
+                if( dialogButton == addButtonType){
+                    List<String> inputList = new ArrayList<>();
+                    inputList.add(accountID.getText());
+                    inputList.add(accountName.getText());
+                    inputList.add(accountEmail.getText());
+                    inputList.add(accountBalance.getText());
+                    return inputList;
+                }
+                return null;
+            });
+
+            Optional<List<String>> result = dialog.showAndWait();
+
+            result.ifPresent(newAccountInfo -> {
+                System.out.println("Account ID:     "+ newAccountInfo.get(0));
+                System.out.println("Name:           " + newAccountInfo.get(1));
+                System.out.println("Email Address:: " + newAccountInfo.get(2));
+                System.out.println("Balance:        " + newAccountInfo.get(3));
+            });
+
         });
 
 
