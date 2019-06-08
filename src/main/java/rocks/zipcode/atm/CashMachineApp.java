@@ -279,6 +279,12 @@ public class CashMachineApp extends Application {
             Optional<List<String>> result = dialog.showAndWait();
 
             result.ifPresent(newAccountInfo -> {
+
+                cashMachine.addAccount(result.get());
+                accountNums.clear();
+                for(String s : cashMachine.getAccountNumbers()){
+                    accountNums.add(s);
+                }
                 System.out.println("Account ID:     "+ newAccountInfo.get(0));
                 System.out.println("Name:           " + newAccountInfo.get(1));
                 System.out.println("Email Address:: " + newAccountInfo.get(2));
