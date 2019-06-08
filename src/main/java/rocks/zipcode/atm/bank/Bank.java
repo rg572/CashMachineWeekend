@@ -68,16 +68,16 @@ public class Bank {
 
         name = info.get(1);
 
-        Pattern p = Pattern.compile(".+@.+\\.+");
+        Pattern p = Pattern.compile(".+@.+\\..+");
         Matcher m = p.matcher(info.get(2));
-        //if(m.matches()){
+        if(m.matches()){
             email = info.get(2);
-       // } else {
-       //     return ActionResult.fail("Invalid email address");
-       // }
+        } else {
+            return ActionResult.fail("Invalid email address");
+        }
 
         try{
-            balance = Integer.parseInt(info.get(0));
+            balance = Integer.parseInt(info.get(3));
             if(balance < 0) return ActionResult.fail("We don't want your negative balances 'round these parts");
         } catch(NumberFormatException e){
             return ActionResult.fail("Invalid balance entered");
