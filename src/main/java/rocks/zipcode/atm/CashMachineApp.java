@@ -20,10 +20,24 @@ public class CashMachineApp extends Application {
     private TextField field = new TextField();
     private CashMachine cashMachine = new CashMachine(new Bank());
     ObservableList<String> accountNums;
+    private TextField passWord = new TextField();
+    private TextField userName = new TextField();
 
-    private Scene login() {
 
-        return
+    private Parent login() {
+        VBox vbox = new VBox(10);
+        vbox.setPrefSize(300, 500);
+        Button login = new Button("Login");
+
+
+        FlowPane flowpane = new FlowPane();
+
+        flowpane.getChildren().add(userName);
+        flowpane.getChildren().add(passWord);
+        flowpane.getChildren().add(login);
+        vbox.getChildren().addAll(userName,passWord,login);
+
+        return vbox;
     }
 
     private Parent createContent() {
@@ -168,7 +182,9 @@ public class CashMachineApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        stage.setScene(new Scene(login()));
         stage.setScene(new Scene(createContent()));
+
         stage.show();
     }
 
