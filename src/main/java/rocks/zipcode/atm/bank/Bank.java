@@ -67,6 +67,9 @@ public class Bank {
         }
 
         name = info.get(1);
+        if(name.equals("") || name == null){
+            return ActionResult.fail("Name not entered");
+        }
 
         Pattern p = Pattern.compile(".+@.+\\..+");
         Matcher m = p.matcher(info.get(2));
