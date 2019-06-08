@@ -1,19 +1,11 @@
 package rocks.zipcode.atm;
-
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
-
-import javafx.scene.paint.Color;
-
-
 import javafx.scene.text.Font;
-
 import javafx.scene.layout.GridPane;
-
 import rocks.zipcode.atm.bank.Bank;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -21,16 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.FlowPane;
-
-
-
-import java.lang.Object;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.Pane;
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -52,16 +34,24 @@ public class CashMachineApp extends Application {
 
     private Parent login() {
         VBox vbox = new VBox(10);
-        vbox.setPrefSize(300, 500);
+        vbox.setPrefSize(250, 400);
         Button login = new Button("Login");
+        Label head = new Label("BADASS BANKING");
+
+        head.setStyle("-fx-text-fill: white");
+
+        vbox.setStyle("-fx-background-color: #30415d ");
+        vbox.setAlignment(Pos.CENTER);
+
+        login.setStyle("-fx-text-fill: #30415d;");
 
 
         FlowPane flowpane = new FlowPane();
-
+        flowpane.getChildren().add(head);
         flowpane.getChildren().add(userName);
         flowpane.getChildren().add(passWord);
         flowpane.getChildren().add(login);
-        vbox.getChildren().addAll(userName,passWord,login);
+        vbox.getChildren().addAll(head,userName,passWord,login);
 
         return vbox;
     }
@@ -76,6 +66,7 @@ public class CashMachineApp extends Application {
         TextArea name = new TextArea();
         TextArea email = new TextArea();
         TextArea balance = new TextArea();
+
 
 
         Alert insufficientFunds = new Alert(Alert.AlertType.WARNING);
@@ -314,7 +305,7 @@ public class CashMachineApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setScene(new Scene(login()));
-        stage.setScene(new Scene(createContent()));
+        //stage.setScene(new Scene(createContent()));
 
         stage.show();
     }
