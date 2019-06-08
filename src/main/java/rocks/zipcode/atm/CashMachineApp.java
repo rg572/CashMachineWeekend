@@ -116,7 +116,7 @@ public class CashMachineApp extends Application {
 
         btnExit.setStyle("-fx-background-color: black");
 
-        
+
         btnExit.setStyle("-fx-background-color: #86a5d6; -fx-radius: 20" );
         btnExit.setFont(Font.font("sans-serif"));
 
