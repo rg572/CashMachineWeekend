@@ -80,6 +80,13 @@ public class CashMachine {
         }
     }
 
+    public void addAccount(List<String> info){
+        tryCall(
+                () -> bank.addAccount(info),
+                update
+        );
+    }
+
     public void exit() {
         if (accountData != null) {
             accountData = null;
