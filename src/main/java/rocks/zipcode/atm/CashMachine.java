@@ -164,4 +164,8 @@ public class CashMachine {
         genericError = false;
         genericErrorMessage = "";
     }
+
+    AccountData getAccountData () {
+        return accountData;
+    }
 }

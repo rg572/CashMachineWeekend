@@ -63,9 +63,9 @@ public class CashMachineApp extends Application {
 ///////////MAIN SCENE////////////
     private Parent createContent() {
         VBox vbox = new VBox(10);
-        vbox.setPrefSize(600, 475);
+        vbox.setPrefSize(600, 500);
 
-        Label title = new Label("Doge Bank");
+        Label title = new Label("ABBD Bank");
         title.setStyle("-fx-text-fill: white; -fx-font: 40 Tahoma; ");
 
         Label idLabel = new Label("Account ID:");
