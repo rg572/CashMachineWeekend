@@ -5,6 +5,13 @@
     <groupId>com.almasb</groupId>
     <artifactId>CashMachine</artifactId>
     <version>0.1-SNAPSHOT</version>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+    </dependencies>
     <packaging>jar</packaging>
 
     <properties>
@@ -19,6 +26,12 @@
     </properties>
 
     <build>
+
+        <resources>
+
+
+        </resources>
+
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

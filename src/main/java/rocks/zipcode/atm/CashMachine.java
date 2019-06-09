@@ -17,6 +17,8 @@ public class CashMachine {
     private final Bank bank;
     private AccountData accountData = null;
     private Boolean overdraft = false;
+    private Boolean genericError = false;
+    private String genericErrorMessage = "";
     private Boolean withdrawFailed = false;
     private String withdrawFailedError = "";
     private Pattern withdrawFailedPattern =
@@ -99,8 +101,11 @@ public class CashMachine {
     }
 
     private <T> void tryCall(Supplier<ActionResult<T> > action, Consumer<T> postAction) {
-        withdrawFailed = false;
-        withdrawFailedError = "";
+//        withdrawFailed = false;
+//        withdrawFailedError = "";
+//        genericError = false;
+//        genericErrorMessage = "";
+        resetFlags();
         try {
             ActionResult<T> result = action.get();
             if (result.isSuccess()) {
@@ -112,6 +117,9 @@ public class CashMachine {
                 if(m.matches()){
                     withdrawFailed = true;
                     withdrawFailedError = errorMessage;
+                } else {
+                    genericError = true;
+                    genericErrorMessage = errorMessage;
                 }
                 throw new RuntimeException(errorMessage);
 
@@ -144,5 +152,20 @@ public class CashMachine {
 
     public String getWithdrawFailedError(){
         return withdrawFailedError;
+    }
+
+    public Boolean getGenericError(){ return genericError; }
+
+    public String getGenericErrorMessage(){ return genericErrorMessage; }
+
+    private void resetFlags(){
+        withdrawFailed = false;
+        withdrawFailedError = "";
+        genericError = false;
+        genericErrorMessage = "";
+    }
+
+    AccountData getAccountData () {
+        return accountData;
     }
 }
