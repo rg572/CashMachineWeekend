@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.AudioClip;
 import javafx.scene.text.Font;
 import javafx.scene.layout.GridPane;
 import rocks.zipcode.atm.bank.Bank;
@@ -14,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.FlowPane;
+
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -99,6 +102,10 @@ public class CashMachineApp extends Application {
         Alert insufficientFunds = new Alert(Alert.AlertType.WARNING);
         insufficientFunds.setTitle("Insufficient Funds");
         insufficientFunds.setHeaderText("Insufficient Funds");
+
+
+
+        AudioClip redAlert = new AudioClip(Paths.get("src/resources/redalert.wav").toUri().toString());
 
         Alert helpAlert = new Alert(Alert.AlertType.INFORMATION);
         //Dialog<List<String>> helpAlert= new Dialog<>();
@@ -199,7 +206,9 @@ public class CashMachineApp extends Application {
 
             if(cashMachine.getWithdrawFailed()){
                 insufficientFunds.setContentText(cashMachine.getWithdrawFailedError());
+                redAlert.play();
                 insufficientFunds.showAndWait();
+
             }
         });
 
