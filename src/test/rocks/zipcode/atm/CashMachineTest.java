@@ -4,6 +4,8 @@ package rocks.zipcode.atm;
 
 import org.junit.Assert;
 import org.junit.Test;
+import rocks.zipcode.atm.bank.Account;
+import rocks.zipcode.atm.bank.AccountData;
 import rocks.zipcode.atm.bank.Bank;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -383,30 +385,82 @@ public class CashMachineTest {
 
 
     @Test
-    public void exit() {
+    public void exitTest() {
+        CashMachine cm = new CashMachine(new Bank());
+        cm.exit();
+
+        AccountData actual = cm.getAccountData();
+        Assert.assertNull(actual);
     }
 
     @Test
-    public void toString1() {
+    public void toStringTest() {
+        CashMachine cm = new CashMachine(new Bank());
+
+        String actual = "Try account 1000 or 2000 and click submit.";
+        String expected = cm.toString();
+
+        Assert.assertEquals(actual, expected);
     }
 
     @Test
-    public void getAccountNumbers() {
+    public void getAccountNumbersTest() {
+        CashMachine cm = new CashMachine(new Bank());
+
+        String expected = cm.getAccountNumbers().get(0);
+        String actual = "1000";
+
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void getAccountNumbersTest2() {
+        CashMachine cm = new CashMachine(new Bank());
+
+        String expected = cm.getAccountNumbers().get(1);
+        String actual = "2000";
+
+        Assert.assertEquals(expected,actual);
     }
 
     @Test
     public void getWithdrawFailed() {
+        CashMachine cm = new CashMachine(new Bank());
+
+        boolean actual = cm.getWithdrawFailed();
+        boolean expected = false;
+
+        Assert.assertEquals(expected,actual);
     }
 
     @Test
     public void getWithdrawFailedError() {
+        CashMachine cm = new CashMachine(new Bank());
+
+        String actual = cm.getWithdrawFailedError();
+        String expected = "";
+
+        Assert.assertEquals(expected,actual);
+
     }
 
     @Test
     public void getGenericError() {
+        CashMachine cm = new CashMachine(new Bank());
+
+        boolean actual = cm.getGenericError();
+        boolean expected = false;
+
+        Assert.assertEquals(expected,actual);
     }
 
     @Test
     public void getGenericErrorMessage() {
+        CashMachine cm = new CashMachine(new Bank());
+
+        String actual = cm.getGenericErrorMessage();
+        String expected = "";
+
+        Assert.assertEquals(expected,actual);
     }
 }
