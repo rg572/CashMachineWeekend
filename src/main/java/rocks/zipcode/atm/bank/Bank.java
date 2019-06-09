@@ -15,11 +15,11 @@ public class Bank {
 
     public Bank() {
         accounts.put(1000, new BasicAccount(new AccountData(
-                1000, "Example 1", "example1@gmail.com", 500
+                1000, "Example 1", "example1@gmail.com", 500.0
         )));
 
         accounts.put(2000, new PremiumAccount(new AccountData(
-                2000, "Example 2", "example2@gmail.com", 200
+                2000, "Example 2", "example2@gmail.com", 200.0
         )));
     }
 
@@ -33,14 +33,14 @@ public class Bank {
         }
     }
 
-    public ActionResult<AccountData> deposit(AccountData accountData, int amount) {
+    public ActionResult<AccountData> deposit(AccountData accountData, double amount) {
         Account account = accounts.get(accountData.getId());
         account.deposit(amount);
 
         return ActionResult.success(account.getAccountData());
     }
 
-    public ActionResult<AccountData> withdraw(AccountData accountData, int amount) {
+    public ActionResult<AccountData> withdraw(AccountData accountData, double amount) {
         Account account = accounts.get(accountData.getId());
         boolean ok = account.withdraw(amount);
 
@@ -55,7 +55,7 @@ public class Bank {
         Integer id;
         String name;
         String email;
-        Integer balance;
+        double balance;
 
         try{
             id = Integer.parseInt(info.get(0));

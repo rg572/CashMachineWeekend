@@ -86,10 +86,10 @@ public class CashMachineTest {
         CashMachine cm = new CashMachine(new Bank());
         cm.login(1000);
 
-        int actual = cm.getAccoutBal();
-        int expected = 500;
+        double actual = cm.getAccoutBal();
+        double expected = 500.0;
 
-        Assert.assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual, 0.01);
     }
 
     @Test
@@ -97,10 +97,10 @@ public class CashMachineTest {
         CashMachine cm = new CashMachine(new Bank());
         cm.login(2000);
 
-        int actual = cm.getAccoutBal();
-        int expected = 200;
+        double actual = cm.getAccoutBal();
+        double expected = 200.0;
 
-        Assert.assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual, 0.01);
     }
 
 
@@ -112,35 +112,35 @@ public class CashMachineTest {
     public void deposit() {
         CashMachine cm = new CashMachine(new Bank());
         cm.login(2000);
-        cm.deposit(100);
+        cm.deposit(100.0);
 
-        int actual = cm.getAccoutBal();
-        int expected = 300;
-        Assert.assertEquals(expected, actual);
+        double actual = cm.getAccoutBal();
+        double expected = 300.0;
+        Assert.assertEquals(expected, actual, 0.01);
     }
 
     @Test
     public void deposit2(){
         CashMachine cm = new CashMachine(new Bank());
         cm.login(1000);
-        cm.deposit(500);
+        cm.deposit(500.0);
 
-        int actual = cm.getAccoutBal();
-        int expected = 1000;
+        double actual = cm.getAccoutBal();
+        double expected = 1000.0;
 
-        Assert.assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual, 0.01);
     }
 
     @Test
     public void withdraw() {
         CashMachine cm = new CashMachine(new Bank());
         cm.login(2000);
-        cm.withdraw(200);
+        cm.withdraw(200.0);
 
-        int actual = cm.getAccoutBal();
-        int expected = 0;
+        double actual = cm.getAccoutBal();
+        double expected = 0.0;
 
-        Assert.assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual, 0.01);
 
     }
 
@@ -148,12 +148,12 @@ public class CashMachineTest {
     public void withdraw2(){
         CashMachine cm = new CashMachine(new Bank());
         cm.login(1000);
-        cm.withdraw(300);
+        cm.withdraw(300.0);
 
-        int actual = cm.getAccoutBal();
-        int expected = 200;
+        double actual = cm.getAccoutBal();
+        double expected = 200.0;
 
-        Assert.assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual, 0.01);
 
 
 
@@ -220,8 +220,8 @@ public class CashMachineTest {
 
         cm.login(1111);
 
-        Integer expected = Integer.parseInt(args[3]);
-        Integer actual = cm.getAccoutBal();
+        Double expected = Double.parseDouble(args[3]);
+        Double actual = cm.getAccoutBal();
 
         Assert.assertEquals(expected, actual);
     }
@@ -364,10 +364,10 @@ public class CashMachineTest {
 
         cm.addAccount(input);
         cm.login(1234);
-        Integer expected = 0;
-        Integer actual = cm.getAccoutBal();
+        Double expected = 0.0;
+        Double actual = cm.getAccoutBal();
 
-        Assert.assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual, 0.01);
     }
 
     @Test
