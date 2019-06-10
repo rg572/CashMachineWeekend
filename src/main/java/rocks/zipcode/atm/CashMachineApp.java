@@ -6,6 +6,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.scene.layout.GridPane;
 import rocks.zipcode.atm.bank.Bank;
@@ -34,6 +36,7 @@ public class CashMachineApp extends Application {
     ObservableList<String> accountNums;
     private TextField passWord = new TextField();
     private TextField userName = new TextField();
+    private MediaPlayer hellmarch;
 
 /////////LOGIN MODAL//////////
     private Parent login() {
@@ -68,32 +71,37 @@ public class CashMachineApp extends Application {
         VBox vbox = new VBox(10);
         vbox.setPrefSize(600, 500);
 
-        Label title = new Label("ABBD Bank");
-        title.setStyle("-fx-text-fill: white; -fx-font: 40 Tahoma; ");
+        hellmarch = new MediaPlayer(new Media(Paths.get("src/resources/hellmarch.wav").toUri().toString()));
+        hellmarch.setVolume(.5);
+        hellmarch.setCycleCount(MediaPlayer.INDEFINITE);
+        hellmarch.play();
+        
+        Label title = new Label("Red Alert Bank");
+        title.setStyle("-fx-text-fill: yellow; -fx-font: 40 Tahoma; ");
 
         Label idLabel = new Label("Account ID:");
-        idLabel.setStyle("-fx-text-fill: white");
+        idLabel.setStyle("-fx-text-fill: yellow");
         TextArea accountId = new TextArea();
         accountId.setMaxHeight(10);
         accountId.setDisable(true);
         accountId.setStyle("-fx-opacity: 1;");
 
         Label nameLabel = new Label("Account Holder Name:");
-        nameLabel.setStyle("-fx-text-fill: white");
+        nameLabel.setStyle("-fx-text-fill: yellow");
         TextArea name = new TextArea();
         name.setMaxHeight(10);
         name.setDisable(true);
         name.setStyle("-fx-opacity: 1;");
 
         Label emailLabel = new Label("Account Email:");
-        emailLabel.setStyle("-fx-text-fill: white");
+        emailLabel.setStyle("-fx-text-fill: yellow");
         TextArea email = new TextArea();
         email.setMaxHeight(10);
         email.setDisable(true);
         email.setStyle("-fx-opacity: 1;");
 
         Label balanceLabel = new Label("Account Balance:");
-        balanceLabel.setStyle("-fx-text-fill: white");
+        balanceLabel.setStyle("-fx-text-fill: yellow");
         TextArea balance = new TextArea();
         balance.setMaxHeight(10);
         balance.setDisable(true);
@@ -102,8 +110,6 @@ public class CashMachineApp extends Application {
         Alert insufficientFunds = new Alert(Alert.AlertType.WARNING);
         insufficientFunds.setTitle("Insufficient Funds");
         insufficientFunds.setHeaderText("Insufficient Funds");
-
-
 
         AudioClip redAlert = new AudioClip(Paths.get("src/resources/redalert.wav").toUri().toString());
 
@@ -128,8 +134,11 @@ public class CashMachineApp extends Application {
 ////////BUTTON STYLES//////////
         Button btnSubmit = new Button("Set Account ID");
 
-        btnSubmit.setStyle("-fx-background-color: #86a5d6");
+        btnSubmit.setStyle("-fx-background-color: yellow");
         btnSubmit.setFont(Font.font("sans-serif"));
+        AudioClip awaitingOrders = new AudioClip(Paths.get("src/resources/awaitingorders.wav").toUri().toString());
+
+
 
         Button btnExit = new Button("Exit");
 
@@ -137,33 +146,40 @@ public class CashMachineApp extends Application {
 
 
 
-        btnExit.setStyle("-fx-background-color: #86a5d6; -fx-radius: 20" );
+        btnExit.setStyle("-fx-background-color: yellow; -fx-radius: 20" );
         btnExit.setFont(Font.font("sans-serif"));
+        AudioClip terminated = new AudioClip(Paths.get("src/resources/battlecontrolterminated.wav").toUri().toString());
+
 
         Button btnWithdraw = new Button("Withdraw");
-        btnWithdraw.setStyle("-fx-background-color: #86a5d6; -fx-radius: 20");
+        btnWithdraw.setStyle("-fx-background-color: yellow; -fx-radius: 20");
         btnWithdraw.setFont(Font.font("sans-serif"));
+        AudioClip kaching = new AudioClip(Paths.get("src/resources/kaching.wav").toUri().toString());
+        AudioClip lowPower = new AudioClip(Paths.get("src/resources/lowpower.wav").toUri().toString());
 
 
         Button btnDeposit = new Button("Deposit");
-        btnDeposit.setStyle("-fx-background-color: #86a5d6;  -fx-radius: 50");
+        btnDeposit.setStyle("-fx-background-color: yellow; -fx-radius: 50");
         btnDeposit.setFont(Font.font("sans-serif"));
-
+        AudioClip giveIt = new AudioClip(Paths.get("src/resources/giveittome.wav").toUri().toString());
 
         Button btnAddAccount = new Button("Add Account");
-        btnAddAccount.setStyle("-fx-background-color: #86a5d6;  -fx-radius: 20");
+        btnAddAccount.setStyle("-fx-background-color: yellow; -fx-radius: 20");
         btnAddAccount.setFont(Font.font("sans-serif"));
+        AudioClip reinforcements = new AudioClip(Paths.get("src/resources/reinforcements.wav").toUri().toString());
+        AudioClip canceled = new AudioClip(Paths.get("src/resources/cancel.wav").toUri().toString());
+        AudioClip failed = new AudioClip(Paths.get("src/resources/missionfailed.wav").toUri().toString());
 
         ComboBox accountMenu = new ComboBox(accountNums);
         accountMenu.setPromptText("Choose an Account");
-        accountMenu.setStyle("-fx-background-color: #86a5d6;  -fx-radius: 20");
+        accountMenu.setStyle("-fx-background-color: yellow; -fx-radius: 20");
 
         Button btnHelp = new Button("Help");
-        btnHelp.setStyle("-fx-background-color: #86a5d6; -fx-radius: 20");
+        btnHelp.setStyle("-fx-background-color: yellow; -fx-radius: 20");
         btnHelp.setFont(Font.font("sans-serif"));
+        AudioClip training = new AudioClip(Paths.get("src/resources/training.wav").toUri().toString());
 
-
-        vbox.setStyle("-fx-background-color: #4b6184; -fx-border-color: black; -fx-border-width: 2");
+        vbox.setStyle("-fx-background-color: red; -fx-border-color: black; -fx-border-width: 2");
 
 
 //////////SUBMIT/////////////
@@ -182,6 +198,7 @@ public class CashMachineApp extends Application {
             balance.setText(Integer.toString(cashMachine.getAccoutBal()));
             name.setText(cashMachine.getAccoutName());
             email.setText(cashMachine.getAccoutEmail());
+            awaitingOrders.play();
         });
 
 //////////DEPOSIT/////////////
@@ -192,6 +209,7 @@ public class CashMachineApp extends Application {
             cashMachine.deposit(amount);
             field.setText("");
             balance.setText(Integer.toString(cashMachine.getAccoutBal()));
+            giveIt.play();
         });
 
 //////////WITHDRAW/////////////
@@ -209,6 +227,12 @@ public class CashMachineApp extends Application {
                 redAlert.play();
                 insufficientFunds.showAndWait();
 
+            }
+            else if(cashMachine.getOverdraft()){
+                lowPower.play();
+            }
+            else{
+                kaching.play();
             }
         });
 
@@ -228,6 +252,7 @@ public class CashMachineApp extends Application {
             name.setText("");
             email.setText("");
             balance.setText("");
+            terminated.play();
 
             //accountNums.add("6000");
         });
@@ -281,6 +306,7 @@ public class CashMachineApp extends Application {
                     inputList.add(accountBalance.getText());
                     return inputList;
                 }
+                canceled.play();
                 return null;
             });
 
@@ -300,7 +326,11 @@ public class CashMachineApp extends Application {
                     yeller.setTitle("Danger, Will Robinson!");
                     //yeller.setHeaderText("Something, somewhere went terribly wrong");
                     yeller.setHeaderText(cashMachine.getGenericErrorMessage());
+                    failed.play();
                     yeller.showAndWait();
+                }
+                else{
+                    reinforcements.play();
                 }
 
 
@@ -315,6 +345,7 @@ public class CashMachineApp extends Application {
 /////////////////HELP BUTTON////////////////
 
         btnHelp.setOnAction(e ->{
+            training.play();
             helpAlert.showAndWait();
 
         });

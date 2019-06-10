@@ -158,6 +158,8 @@ public class CashMachine {
 
     public String getGenericErrorMessage(){ return genericErrorMessage; }
 
+    public Boolean getOverdraft(){ return overdraft;}
+
     private void resetFlags(){
         withdrawFailed = false;
         withdrawFailedError = "";
