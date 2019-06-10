@@ -103,13 +103,13 @@ public class CashMachineApp extends Application {
         Alert helpAlert = new Alert(Alert.AlertType.INFORMATION);
         //Dialog<List<String>> helpAlert= new Dialog<>();
 
-//        helpAlert.setTitle("\"Help\"");
-//        helpAlert.setHeaderText("Google it");
-//        helpAlert.getDialogPane().setStyle("-fx-font-size: 20pt");
-//        ImageView kris = new ImageView("Kris.png");
-//        kris.setFitHeight(150);
-//        kris.setFitWidth(150);
-//        helpAlert.setGraphic(kris);
+        helpAlert.setTitle("\"Help\"");
+        helpAlert.setHeaderText("Google it");
+        helpAlert.getDialogPane().setStyle("-fx-font-size: 20pt");
+        ImageView kris = new ImageView("Kris.png");
+        kris.setFitHeight(150);
+        kris.setFitWidth(150);
+        helpAlert.setGraphic(kris);
 
 //////////DROP-DOWN/////////////
 
