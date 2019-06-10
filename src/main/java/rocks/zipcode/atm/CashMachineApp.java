@@ -229,8 +229,8 @@ public class CashMachineApp extends Application {
         btnAddAccount.setOnAction(e ->{
 
             Dialog<List<String>> dialog = new Dialog<>();
-            dialog.setTitle("It's a dialog");
-            dialog.setHeaderText("IN SPAAAAAACE!!!!");
+            dialog.setTitle("New Account Creation");
+            dialog.setHeaderText("Please Enter Your Information");
 
             // dialog.setGraphic(new ImageView(this.getClass().getResource("fileName.extension").toString())) //add an icon
 
